@@ -1,27 +1,15 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 
-	"github.com/fenriz07/api-go/person"
+	"github.com/fenriz07/api-go/controllers/PersonController"
 )
 
 func main() {
 
-	http.HandleFunc("/api/person", func(w http.ResponseWriter, r *http.Request) {
-
-		person := person.NewPerson("Servio", "Zambrano", 28)
-
-		output, err := json.Marshal(person)
-
-		if err != nil {
-			fmt.Println("Algo salio mal", err)
-		}
-
-		fmt.Fprint(w, string(output))
-	})
+	http.HandleFunc("/api/person/1", PersonController.GetPerson)
 
 	fmt.Println("Iniciando server")
 	http.ListenAndServe(":8080", nil)
